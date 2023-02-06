@@ -13,3 +13,7 @@ export const USER_LOGIN_SUCCESS = "user/login/success";
 // Logout
 
 export const USER_LOGOUT = "user/logout";
+
+//if token already present
+
+export const USER_LOADED = "user/loaded";
