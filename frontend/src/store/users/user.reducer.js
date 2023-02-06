@@ -18,6 +18,7 @@ const initState = {
   name: null,
   email: null,
   _id: null,
+  role: null,
 };
 
 export const userReducer = (state = initState, { type, payload }) => {
@@ -36,9 +37,11 @@ export const userReducer = (state = initState, { type, payload }) => {
         error: true,
       };
     case USER_LOADED:
-    case USER_SIGNUP_SUCCESS || USER_LOGIN_SUCCESS:
+    case USER_SIGNUP_SUCCESS:
+    case USER_LOGIN_SUCCESS:
       toast("Welcome...", { position: toast.POSITION.BOTTOM_RIGHT });
       const user = jwtDecode(payload);
+      console.log(user);
       return {
         ...state,
         loading: false,
@@ -47,14 +50,20 @@ export const userReducer = (state = initState, { type, payload }) => {
         name: user.name,
         _id: user._id,
         email: user.email,
+        role: user.role,
       };
     case USER_LOGOUT:
       localStorage.removeItem("token");
       toast("Good Bye...", { position: toast.POSITION.BOTTOM_RIGHT });
       return {
+        ...state,
         token: null,
         error: false,
         loading: false,
+        name: null,
+        _id: null,
+        email: null,
+        role: null,
       };
     default:
       return state;

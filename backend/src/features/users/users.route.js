@@ -14,6 +14,7 @@ app.post("/signup", async (req, res) => {
     name: Joi.string().min(3).max(30).required(),
     email: Joi.string().email().min(3).max(200).required(), //changed
     password: Joi.string().min(6).max(200).required(),
+    role: Joi.string(),
   });
 
   const { error } = schema.validate(req.body);
@@ -36,6 +37,7 @@ app.post("/signup", async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
+        role: user.role,
       },
       secretKey
     );
@@ -65,10 +67,9 @@ app.post("/login", async (req, res) => {
     if (!validPass) {
       return res.status(400).send("Invalid email or password");
     }
-
     const secretKey = process.env.SECRET_KEY;
     const token = jwt.sign(
-      { _id: user._id, name: user.name, email: user.email },
+      { _id: user._id, name: user.name, email: user.email, role: user.role },
       secretKey
     );
     res.send(token);

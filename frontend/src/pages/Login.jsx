@@ -22,8 +22,8 @@ const Login = () => {
     setCreds({email:"",password:""})
   }
 
-  if(auth._id){
-    return <Navigate to={"/"} />
+  if(auth.role==="admin"){
+    return <Navigate to={"/admin"} />
   }
   return (
     <>
@@ -46,7 +46,7 @@ const Login = () => {
           <FormLabel htmlFor="password">Password</FormLabel>
           <Input value={creds.password} onChange={(e)=>setCreds({...creds,password:e.target.value})} id="password" type="password" />
         </FormControl>
-        <Button onSubmit={handleSignIn} width={"100%"} mt={4} type="submit">
+        <Button onClick={handleSignIn} width={"100%"} mt={4} type="submit">
           Login
         </Button>
       </Box>
