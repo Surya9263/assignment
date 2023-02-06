@@ -15,7 +15,7 @@ export const SignupAPI = (signupCred) => async (dispatch) => {
   dispatch({ type: USER_SIGNUP_LOADING });
   try {
     const res = await axios.post(
-      "http://localhost:8080/user/signup",
+      "https://assignment-production-4f23.up.railway.app/user/signup",
       signupCred
     );
     localStorage.setItem("token", res.data);
@@ -32,7 +32,10 @@ export const SignupAPI = (signupCred) => async (dispatch) => {
 export const loginAPI = (loginCreds) => async (dispatch) => {
   dispatch({ type: USER_LOGIN_LOADING });
   try {
-    let res = await axios.post("http://localhost:8080/user/login", loginCreds);
+    let res = await axios.post(
+      "https://assignment-production-4f23.up.railway.app/user/login",
+      loginCreds
+    );
     localStorage.setItem("token", res.data);
     dispatch({
       type: USER_LOGIN_SUCCESS,
